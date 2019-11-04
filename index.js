@@ -22,12 +22,25 @@ console.log('Server is running at http://'+server+':'+port+'/');
 const express = require("express");
 var app = express();
 const port = 3000; //set our local port for local host
-const server = '127.0.0.1';
+const ip = '127.0.0.1';
+var bodyParser = require('body-parser');
 
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+
+var cats = require("./cats")(app);
+
+/*
 app.get("/", function(req, res){
-	res.send("Hello World!");
-	//res.json({hello: "world"});
+	//res.send("Hello World!");
+	res.json({hello: "world"});
 });
+*/
+
 var server = app.listen(port, function(){
-	console.log('Server is running at http://'+server+':'+port+'/');
+	console.log('Server is running at http://'+ip+':'+port+'/');
 });
